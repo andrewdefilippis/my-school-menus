@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "my_school_menus"
+version = "0.0.1"
+authors = [
+    { name="Andrew R. DeFilippis", email="andrew@defilippisfamily.com" },
+]
+description = "A package for interacting with My School Menus."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/andrewdefilippis/my_school_menus"
+Issues = "https://github.com/andrewdefilippis/my_school_menus/issues"
