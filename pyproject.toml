@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "my_school_menus"
+name = "my-school-menus"
 version = "0.0.1"
 authors = [
     { name="Andrew R. DeFilippis", email="andrew@defilippisfamily.com" },
@@ -20,9 +20,3 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/andrewdefilippis/my_school_menus"
 Issues = "https://github.com/andrewdefilippis/my_school_menus/issues"
-
-[tool.pytest.ini_options]
-pythonpath = "src"
-addopts = [
-    "--import-mode=importlib",
-]
