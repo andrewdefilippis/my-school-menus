@@ -1,5 +1,6 @@
+import pytest
 from my_school_menus.api import Menus
-from unittest import TestCase, mock
+from unittest import mock
 
 
 class MockResponse:
@@ -29,14 +30,13 @@ def mocked_requests_menus_get_successful(*args, **kwargs):
                                   'menu_month': '', 'menu_month_calendar': []}}, 200)
 
 
-class Test(TestCase):
-    @mock.patch('requests.get', side_effect=mocked_requests_menus_get_no_records_found)
-    def test_get_menu_non_existent_ids(self, mock_get):
-        with self.assertRaises(ValueError):
-            Menus().get(0, 0)
+@mock.patch('requests.get', side_effect=mocked_requests_menus_get_no_records_found)
+def test_get_menu_non_existent_ids(mock_get):
+    with pytest.raises(ValueError):
+        Menus().get(0, 0)
 
-    @mock.patch('requests.get', side_effect=mocked_requests_menus_get_successful)
-    def test_get_menu_successful_ids(self, mock_get):
-        menu_info = Menus().get(1337, 12345)
-        assert menu_info['data']['menu_info']['menu_id'] == 12345
 
+@mock.patch('requests.get', side_effect=mocked_requests_menus_get_successful)
+def test_get_menu_successful_ids(mock_get):
+    menu_info = Menus().get(1337, 12345)
+    assert menu_info['data']['menu_info']['menu_id'] == 12345

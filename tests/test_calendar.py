@@ -1,5 +1,5 @@
+import pytest
 from my_school_menus.calendar import Calendar
-from unittest import TestCase
 
 
 def menu_data():
@@ -8,19 +8,21 @@ def menu_data():
     ]}}
 
 
-class Test(TestCase):
-    def test_events_missing_menu_data(self):
-        with self.assertRaises(ValueError):
-            Calendar.events({'data': {'menu_month_calendar': []}})
+def test_events_missing_menu_data():
+    with pytest.raises(ValueError):
+        Calendar.events({'data': {'menu_month_calendar': []}})
 
-    def test_events(self):
-        Calendar.events(menu_data())
 
-    def test_calendar(self):
-        event_data = Calendar.events(menu_data())
-        Calendar.calendar(event_data)
+def test_events():
+    Calendar.events(menu_data())
 
-    def test_ical(self):
-        event_data = Calendar.events(menu_data())
-        icalendar_calendar = Calendar.calendar(event_data)
-        Calendar.ical(icalendar_calendar)
+
+def test_calendar():
+    event_data = Calendar.events(menu_data())
+    Calendar.calendar(event_data)
+
+
+def test_ical():
+    event_data = Calendar.events(menu_data())
+    icalendar_calendar = Calendar.calendar(event_data)
+    Calendar.ical(icalendar_calendar)

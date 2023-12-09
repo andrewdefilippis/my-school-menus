@@ -4,17 +4,31 @@ build-backend = "hatchling.build"
 
 [project]
 name = "my-school-menus"
-version = "0.0.2"
+dependencies = [
+    "icalendar~=5.0.11",
+    "requests~=2.31.0"
+]
+dynamic = ["version"]
+requires-python = ">=3.9"
 authors = [
     { name="Andrew R. DeFilippis", email="andrew@defilippisfamily.com" },
 ]
 description = "A package for interacting with My School Menus."
 readme = "README.md"
-requires-python = ">=3.9"
+license = {file = "LICENSE"}
+keywords = ["api", "school", "lunch", "menu", "calendar"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+    "Operating System :: OS Independent"
+]
+
+[tool.hatch.version]
+path = "my_school_menus/__meta__.py"
+
+[project.optional-dependencies]
+test = [
+    "pytest~=7.4.3",
 ]
 
 [project.urls]
