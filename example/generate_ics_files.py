@@ -4,7 +4,7 @@ import os
 
 DISTRICT_ID = 1265
 SITE_ID = 12589
-MENU_ID = 45992
+MENU_ID = 76222
 FILE_SUFFIX = 'school-lunch-calendar.ics'
 
 
