@@ -15,7 +15,7 @@ class Calendar:
         :rtype: list
         """
         event_list = []
-        menu_month_calendar = menu['data']['menu_month_calendar']
+        menu_month_calendar = menu['data']
         if not menu_month_calendar:
             raise ValueError(
                 f"Missing menu data."

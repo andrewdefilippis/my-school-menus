@@ -42,7 +42,7 @@ class Request:
         response = requests.get(url=url, headers=params.headers)
         if response.status_code != 200:
             raise ValueError(
-                f"Endpoint returned status code {response.status_code}: {response.reason}"
+                f"Endpoint {url} returned status code {response.status_code}: {response.reason}"
             )
         try:
             json = response.json()
@@ -59,7 +59,7 @@ class Request:
 
 class Menus:
     def __init__(self):
-        self.path = '/api/public/menus'
+        self.path = '/api/organizations'
 
     def get(self, district_id: int, site_id: int = None, menu_id: int = None, date: datetime.date = None) -> dict:
         """
@@ -76,11 +76,11 @@ class Menus:
 
         exception_message = f"No menu found for district {district_id}"
         if site_id:
-            path = self.path + f"/?site={site_id}"
+            path = self.path + f"/{district_id}/sites/{site_id}"
         elif menu_id:
-            path = self.path + f"/{menu_id}"
+            path = self.path + f"/{district_id}/menus/{menu_id}"
             if date:
-                path = path + f"?menu_month={date.strftime('%Y-%m-01')}"
+                path = path + f"/year/{date.strftime('%Y')}/month/{date.strftime('%m')}/date_overwrites"
         else:
             path = self.path
         return Request.get(RequestParams(
@@ -113,12 +113,12 @@ class Menus:
         :rtype: list
         """
 
-        return [datetime.fromisoformat(date) for date in menu['data']['menu_info']['menu_months_array']]
+        return [datetime.fromisoformat(date) for date in menu['data']['published_months']]
 
 
 class Organizations:
     def __init__(self):
-        self.path = '/api/public/organizations'
+        self.path = '/api/organizations'
 
     def get(self, organization_id: int = None) -> dict:
         """
