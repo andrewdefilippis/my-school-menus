@@ -85,22 +85,8 @@ class Menus:
             path = self.path
         return Request.get(RequestParams(
             path=path,
-            headers={'x-district': str(district_id)},
             exception_message=exception_message + f", menu {menu_id}{f', and date {date}' if date else ''}" if menu_id else exception_message
         ))
-
-    @staticmethod
-    def menu_month(menu: dict) -> datetime.date:
-        """
-        Get month for menu in date format.
-
-        :param menu: Menu to get date.
-
-        :return: List of months available for a menu.
-        :rtype: datetime.date
-        """
-
-        return datetime.fromisoformat(menu['data']['menu_month'])
 
     @staticmethod
     def menu_months(menu: dict) -> list[datetime.date]:
@@ -136,59 +122,22 @@ class Organizations:
         ))
 
 
-class Settings:
-    def __init__(self):
-        self.path = '/api/settings'
-
-    def get(self) -> dict:
-        """
-        Get settings data.
-
-        :return: Settings data.
-        :rtype: dict
-        """
-
-        return Request.get(RequestParams(
-            path=self.path,
-            exception_message=f"No settings found"
-        ))
-
-
 class Sites:
     def __init__(self):
-        self.path = '/api/public/sites'
+        self.path = 'api/organizations'
 
-    def get(self, district_id: int, site_id: int = None) -> dict:
+    def get(self, district_id: int, site_id: int) -> dict:
         """
-        Get a list of sites by district ID.
+        Get a site for a given district.
 
         :param district_id: District ID.
         :param site_id: Site ID.
 
-        :return: District sites.
+        :return: District site.
         :rtype: dict
         """
 
         return Request.get(RequestParams(
-            path=self.path + f"/{site_id}" if site_id else self.path,
-            headers={'x-district': str(district_id)},
-            exception_message=f"No sites found for district {district_id}" + f" and site {site_id}" if site_id else ""
-        ))
-
-
-class Statics:
-    def __init__(self):
-        self.path = '/api/statics'
-
-    def get(self, organization_id: str = None) -> dict:
-        """
-        Get statics data.
-
-        :return: Statics data.
-        :rtype: dict
-        """
-
-        return Request.get(RequestParams(
-            path=self.path + f"?organization={organization_id}" if organization_id else self.path,
-            exception_message=f"No statics found"
+            path=self.path + f"/{district_id}/sites/{site_id}",
+            exception_message=f"No site found for district {district_id}" + f" and site {site_id}"
         ))

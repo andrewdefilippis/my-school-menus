@@ -15,13 +15,13 @@ class Calendar:
         :rtype: list
         """
         event_list = []
-        menu_month_calendar = menu['data']
-        if not menu_month_calendar:
+        menu_data = menu['data']
+        if not menu_data:
             raise ValueError(
                 f"Missing menu data."
             )
 
-        for entry in menu_month_calendar:
+        for entry in menu_data:
             if entry is None:
                 continue
             event = icalendar.Event()

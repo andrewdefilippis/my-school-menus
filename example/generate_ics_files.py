@@ -1,6 +1,9 @@
-from my_school_menus.api import Menus
-from my_school_menus.calendar import Calendar
+import sys
 import os
+sys.path.append(os.path.pardir)
+
+from my_school_menus.msm_api import Menus
+from my_school_menus.msm_calendar import Calendar
 
 DISTRICT_ID = 1265
 SITE_ID = 12589
