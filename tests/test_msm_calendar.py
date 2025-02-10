@@ -1,16 +1,16 @@
 import pytest
-from my_school_menus.calendar import Calendar
+from my_school_menus.msm_calendar import Calendar
 
 
 def menu_data():
-    return {'data': {'menu_month_calendar': [
+    return {'data': [
         {'setting': '{"current_display":[{"type":"recipe","recipe_name":"Chicken Nuggets"}]}'}
-    ]}}
+    ]}
 
 
 def test_events_missing_menu_data():
     with pytest.raises(ValueError):
-        Calendar.events({'data': {'menu_month_calendar': []}})
+        Calendar.events({'data': []})
 
 
 def test_events():

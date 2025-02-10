@@ -1,6 +1,9 @@
-from my_school_menus.api import Menus
-from my_school_menus.calendar import Calendar
+import sys
 import os
+sys.path.append(os.path.pardir)
+
+from my_school_menus.msm_api import Menus
+from my_school_menus.msm_calendar import Calendar
 
 DISTRICT_ID = 1265
 SITE_ID = 12589
@@ -14,9 +17,10 @@ def main():
     available_dates = menus.menu_months(menu)
     for date in available_dates:
         filepath = f"{os.path.dirname(os.path.realpath(__file__))}/{date.year}-{date.month:02}-{FILE_SUFFIX}"
-        calendar_menu = menu if menus.menu_month(menu) == date else menus.get(
+        calendar_menu = menus.get(
             district_id=DISTRICT_ID, menu_id=MENU_ID, date=date
         )
+        print(calendar_menu)
         cal = Calendar()
         events = cal.events(calendar_menu)
         calendar = cal.calendar(events)
