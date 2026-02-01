@@ -1,3 +1,11 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = [
+#   "icalendar",
+#   "requests",
+# ]
+# ///
+
 import sys
 import os
 sys.path.append(os.path.pardir)
@@ -5,9 +13,16 @@ sys.path.append(os.path.pardir)
 from my_school_menus.msm_api import Menus
 from my_school_menus.msm_calendar import Calendar
 
-DISTRICT_ID = 1265
-SITE_ID = 12589
-MENU_ID = 76222
+# These are the original examplar IDs but they do not currently work
+#DISTRICT_ID = 1265
+#SITE_ID = 12589
+#MENU_ID = 76222
+
+# These work
+DISTRICT_ID = 1272
+SITE_ID = 10048
+MENU_ID = 98201
+
 FILE_SUFFIX = 'school-lunch-calendar.ics'
 
 
