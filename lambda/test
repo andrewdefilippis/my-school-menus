@@ -1,0 +1,109 @@
+#!/usr/bin/env -S uv run --script
+# vim: ts=4 et
+#
+# /// script
+# dependencies = [
+#   "icalendar",
+#   "requests",
+# ]
+# ///
+
+import sys
+import json
+from types import SimpleNamespace
+
+# Import the handler from the local file
+try:
+    from lambda_function import handler
+except ImportError:
+    import importlib
+    try:
+        handler_module = importlib.import_module('lambda-handler')
+        handler = handler_module.handler
+    except ImportError:
+        print('error: could not find lambda-handler or lambda_function', file=sys.stderr)
+        sys.exit(1)
+
+class LambdaTestHarness(object):
+    '''
+    Test harness for simulating AWS Lambda Function URL events.
+    Displays headers only in debug mode.
+    '''
+
+    def __init__(self):
+        self.args = SimpleNamespace(debug=False)
+
+    def __call__(self, args):
+        import argparse
+        parser = argparse.ArgumentParser(
+            description='Test the Lambda handler locally.'
+        )
+        parser.add_argument(
+            'district',
+            help='District ID or name'
+        )
+        parser.add_argument(
+            'site',
+            help='Site ID or name'
+        )
+        parser.add_argument(
+            'menu',
+            help='Menu ID or name'
+        )
+        parser.add_argument(
+            '-d', '--debug',
+            action='store_true',
+            help='enable debugging (shows headers)'
+        )
+        
+        self.args = parser.parse_args(args)
+
+        # Construct the mock Lambda Function URL event (Payload 2.0)
+        event = {
+            'rawPath': f'/{self.args.district}/{self.args.site}/{self.args.menu}',
+            'requestContext': {
+                'http': {
+                    'method': 'GET',
+                    'path': f'/{self.args.district}/{self.args.site}/{self.args.menu}'
+                }
+            }
+        }
+
+        # Mock context object
+        context = SimpleNamespace(function_name='test-function')
+
+        # Execute handler
+        result = handler(event, context)
+
+        status = result.get('statusCode', 500)
+        headers = result.get('headers', {})
+        body = result.get('body', '')
+
+        # Debug output: Status and headers
+        if self.args.debug:
+            print(f'Status: {status}', file=sys.stderr)
+            for key, value in headers.items():
+                print(f'{key}: {value}', file=sys.stderr)
+            print('---', file=sys.stderr)
+
+        # Main output
+        print(body)
+        
+        return 0 if status == 200 else 1
+
+    @classmethod
+    def main(cls):
+        if __name__ == '__main__':
+            app = LambdaTestHarness()
+            try:
+                exit_code = app(sys.argv[1:])
+                sys.exit(exit_code)
+            except KeyboardInterrupt:
+                print('\nbreak', file=sys.stderr)
+            except Exception as exc:
+                if hasattr(app, 'args') and app.args.debug:
+                    raise
+                print('error:', exc, file=sys.stderr)
+                sys.exit(255)
+
+LambdaTestHarness.main()

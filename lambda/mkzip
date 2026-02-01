@@ -1,0 +1,183 @@
+#!/usr/bin/env python3
+# vim: ts=4 et
+
+import sys
+import os
+import shutil
+import tempfile
+import argparse
+import subprocess
+from types import SimpleNamespace
+
+# External modules to be installed via pip
+LAMBDA_DEPS = [
+    'requests',
+    'icalendar',
+]
+
+# Local directories to be copied into the layer/zip
+LOCAL_DEPS = [
+    '../../my_school_menus',
+]
+
+class LayerBuilder(object):
+    '''
+    Builds a ZIP file for an AWS Lambda Layer or a Full Deployment package.
+    Executes pip as a subprocess via the current interpreter and copies
+    local dependencies.
+    '''
+
+    def __init__(self):
+        self.args = SimpleNamespace(debug=False)
+        self.py_version = 'python3.12'
+        # Base directory of the script for relative path resolution
+        self.base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    def _install_external_dependencies(self, install_path, packages):
+        '''Runs python3 -m pip install via subprocess.'''
+        
+        cmd = [
+            sys.executable, '-m', 'pip',
+            'install',
+            '--target', install_path,
+            '--upgrade',
+            '--no-cache-dir'
+        ]
+
+        if self.args.platform:
+            # When --platform is used, --only-binary=:all: is often required by pip
+            # to avoid building from source for a different platform.
+            cmd += ['--platform', self.args.platform, '--only-binary=:all:']
+
+        cmd += packages
+        
+        print(f'Installing {packages} via subprocess (python -m pip)...')
+        if self.args.platform:
+            print(f'Target platform: {self.args.platform}')
+        
+        # Capture output unless debug is enabled
+        result = subprocess.run(
+            cmd,
+            capture_output=not self.args.debug,
+            text=True
+        )
+        
+        if result.returncode != 0:
+            if not self.args.debug:
+                print(result.stderr, file=sys.stderr)
+            raise RuntimeError(f'pip install failed with exit code {result.returncode}')
+
+    def _copy_local_dependencies(self, install_path, local_paths):
+        '''Copies local directories into the target folder.'''
+        for rel_path in local_paths:
+            src_path = os.path.abspath(os.path.join(self.base_dir, rel_path))
+            if not os.path.exists(src_path):
+                print(f'warning: local dependency not found at {src_path}', file=sys.stderr)
+                continue
+            
+            # Use the directory name as the destination folder name
+            dest_name = os.path.basename(src_path)
+            dest_path = os.path.join(install_path, dest_name)
+            
+            print(f'Copying local dependency: {src_path} -> {dest_path}')
+            
+            # Remove existing if it was somehow already there (e.g. from pip)
+            if os.path.exists(dest_path):
+                if os.path.isdir(dest_path):
+                    shutil.rmtree(dest_path)
+                else:
+                    os.remove(dest_path)
+            
+            shutil.copytree(src_path, dest_path)
+
+    def build(self):
+        '''Creates the directory structure, installs, and zips.'''
+        work_dir = tempfile.mkdtemp(prefix='lambda-package-')
+        
+        if self.args.full_deployment:
+            # Full deployment: Root of ZIP is site-packages
+            install_path = work_dir
+            print('Mode: Full Deployment (Standalone ZIP)')
+            
+            # Find and copy lambda_function.py into the root
+            handler_file = os.path.join(self.base_dir, 'lambda_function.py')
+            if os.path.exists(handler_file):
+                print(f'Copying handler: {handler_file} -> {work_dir}')
+                shutil.copy2(handler_file, os.path.join(work_dir, 'lambda_function.py'))
+            else:
+                print('warning: lambda_function.py not found in script directory', file=sys.stderr)
+        else:
+            # Layer mode: Nested path structure
+            install_path = os.path.join(work_dir, 'python', 'lib', self.py_version, 'site-packages')
+            os.makedirs(install_path)
+            print('Mode: Lambda Layer')
+
+        try:
+            # Install external dependencies from PyPI
+            if LAMBDA_DEPS:
+                self._install_external_dependencies(install_path, LAMBDA_DEPS)
+            
+            # Copy local source code dependencies
+            if LOCAL_DEPS:
+                self._copy_local_dependencies(install_path, LOCAL_DEPS)
+
+            output_base = self.args.output.replace('.zip', '')
+            print(f'Creating archive: {output_base}.zip...')
+            shutil.make_archive(output_base, 'zip', work_dir)
+
+        finally:
+            if not self.args.debug:
+                shutil.rmtree(work_dir)
+            else:
+                print(f'Debug: Workspace preserved at {work_dir}')
+
+    def __call__(self, args):
+        parser = argparse.ArgumentParser(description='Build AWS Lambda Layer or Full Deployment ZIP')
+        parser.add_argument(
+            '-o', '--output',
+            default='lambda-package.zip',
+            help='Output ZIP filename'
+        )
+        parser.add_argument(
+            '-p', '--platform',
+            help='Target platform for pip (e.g., manylinux2014_x86_64)'
+        )
+        parser.add_argument(
+            '-f', '--full-deployment',
+            action='store_true',
+            help='Create a full deployment ZIP (includes lambda_function.py at root, no layer nesting)'
+        )
+        parser.add_argument(
+            '-d', '--debug',
+            action='store_true',
+            help='Enable debugging (preserves work directory, shows pip output)'
+        )
+
+        self.args = parser.parse_args(args)
+        
+        # Adjust default output name if user didn't specify one
+        if self.args.output == 'lambda-package.zip':
+            if self.args.full_deployment:
+                self.args.output = 'lambda-deploy.zip'
+            else:
+                self.args.output = 'lambda-layer.zip'
+
+        self.build()
+        return 0
+
+    @classmethod
+    def main(cls):
+        if __name__ == '__main__':
+            app = LayerBuilder()
+            try:
+                exit_code = app(sys.argv[1:])
+                sys.exit(exit_code)
+            except KeyboardInterrupt:
+                print('\nbreak', file=sys.stderr)
+            except Exception as exc:
+                if hasattr(app, 'args') and app.args.debug:
+                    raise
+                print('error:', exc, file=sys.stderr)
+                sys.exit(255)
+
+LayerBuilder.main()
