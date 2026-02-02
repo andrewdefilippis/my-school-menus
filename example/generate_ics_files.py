@@ -1,13 +1,13 @@
 import sys
 import os
-sys.path.append(os.path.pardir)
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from my_school_menus.msm_api import Menus
 from my_school_menus.msm_calendar import Calendar
 
 DISTRICT_ID = 1265
 SITE_ID = 12589
-MENU_ID = 76222
+MENU_ID = 106935
 FILE_SUFFIX = 'school-lunch-calendar.ics'
 
 
