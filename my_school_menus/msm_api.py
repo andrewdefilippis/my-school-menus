@@ -1,8 +1,19 @@
 import requests
 from datetime import datetime
 from dataclasses import dataclass
+import socket
 
-DOMAIN = 'myschoolmenus.com'
+# Force IPv4 to avoid IPv6 timeout issues with this API
+_orig_getaddrinfo = socket.getaddrinfo
+
+
+def _getaddrinfo_ipv4_only(host, port, family=0, type=0, proto=0, flags=0):
+    return _orig_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
+
+
+socket.getaddrinfo = _getaddrinfo_ipv4_only
+
+DOMAIN = 'menus.healthepro.com'
 
 
 @dataclass
@@ -13,9 +24,6 @@ class RequestParams:
 
 
 class Request:
-    def __init__(self):
-        pass
-
     @staticmethod
     def url(path) -> str:
         """
@@ -39,7 +47,7 @@ class Request:
         """
 
         url = f"{Request.url(params.path)}"
-        response = requests.get(url=url, headers=params.headers)
+        response = requests.get(url=url, headers=params.headers, timeout=30)
         if response.status_code != 200:
             raise ValueError(
                 f"Endpoint {url} returned status code {response.status_code}: {response.reason}"
