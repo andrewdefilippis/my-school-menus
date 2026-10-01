@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "id": 1450552979,
+      "day": "2026-09-03",
+      "meal_id": 17546577,
+      "setting": "{\"current_display\":[{\"item\":\"Lunch Entree\",\"weight\":0,\"name\":\"Lunch Entree\",\"type\":\"category\"},{\"item\":1384369,\"weight\":1,\"name\":\"Crispy Chicken Nuggets\",\"type\":\"recipe\"},{\"item\":\"Vegetables\",\"weight\":2,\"name\":\"Vegetables\",\"type\":\"category\"},{\"item\":2108295,\"weight\":3,\"name\":\"Green Beans\",\"type\":\"recipe\"},{\"item\":1789203,\"weight\":4,\"name\":\"Golden Corn Kernels\",\"type\":\"recipe\"},{\"item\":\"Fruit\",\"weight\":5,\"name\":\"Fruit\",\"type\":\"category\"},{\"item\":2108481,\"weight\":6,\"name\":\"Diced Peaches\",\"type\":\"recipe\"},{\"item\":\"Grains\",\"weight\":7,\"name\":\"Grains\",\"type\":\"category\"},{\"item\":1758724,\"weight\":8,\"name\":\"Triple Chocolate Filled Cookie\",\"type\":\"recipe\"},{\"item\":\"Milk\",\"weight\":9,\"name\":\"Milk\",\"type\":\"category\"},{\"item\":1378987,\"weight\":10,\"name\":\"1% White Milk\",\"type\":\"recipe\"},{\"item\":2048292,\"weight\":11,\"name\":\"Fat Free Chocolate Milk\",\"type\":\"recipe\"}],\"available_recipes\":[2108481,1758724,1378987,1384369,2108295,2048292,1789203],\"hidden_items\":[{\"item\":\"orig_choice_of\",\"weight\":0,\"name\":\"Choice of\",\"type\":\"text\"},{\"item\":\"orig_with\",\"weight\":0,\"name\":\"With\",\"type\":\"text\"},{\"item\":\"orig_and\",\"weight\":0,\"name\":\"And\",\"type\":\"text\"},{\"item\":\"orig_or\",\"weight\":0,\"name\":\"Or\",\"type\":\"text\"}],\"days_off\":[],\"daily_meal_items\":[]}",
+      "overwritten": false
+    },
+    {
+      "id": 1450552980,
+      "day": "2026-09-04",
+      "meal_id": 17546578,
+      "setting": "{\"current_display\":[],\"available_recipes\":[],\"hidden_items\":[],\"days_off\":{\"status\":1,\"description\":\"Labor Day Weekend\"}}",
+      "overwritten": false
+    },
+    {
+      "id": 1450552981,
+      "day": "2026-09-07",
+      "meal_id": 17546579,
+      "setting": "{\"current_display\":[],\"available_recipes\":[],\"hidden_items\":[],\"days_off\":{\"status\":1,\"description\":\"Labor Day Weekend\"}}",
+      "overwritten": false
+    },
+    {
+      "id": 1450552982,
+      "day": "2026-09-08",
+      "meal_id": 17546580,
+      "setting": "{\"current_display\":[{\"item\":\"Lunch Entree\",\"weight\":0,\"name\":\"Lunch Entree\",\"type\":\"category\"},{\"item\":1629779,\"weight\":1,\"name\":\"Cheesy Beef Nachos\",\"type\":\"recipe\"},{\"item\":\"Vegetables\",\"weight\":2,\"name\":\"Vegetables\",\"type\":\"category\"},{\"item\":1379062,\"weight\":3,\"name\":\"Red Gold Salsa Cup\",\"type\":\"recipe\"},{\"item\":2077891,\"weight\":4,\"name\":\"Bush's Taco Fiesta Black Beans\",\"type\":\"recipe\"},{\"item\":1789203,\"weight\":5,\"name\":\"Golden Corn Kernels\",\"type\":\"recipe\"},{\"item\":\"Fruit\",\"weight\":6,\"name\":\"Fruit\",\"type\":\"category\"},{\"item\":1698593,\"weight\":7,\"name\":\"Diced Peaches Cup\",\"type\":\"recipe\"},{\"item\":1378940,\"weight\":8,\"name\":\"Assorted Seasonal Fresh  Fruit\",\"type\":\"recipe\"},{\"item\":\"Milk\",\"weight\":9,\"name\":\"Milk\",\"type\":\"category\"},{\"item\":1378987,\"weight\":10,\"name\":\"1% White Milk\",\"type\":\"recipe\"},{\"item\":2048292,\"weight\":11,\"name\":\"Fat Free Chocolate Milk\",\"type\":\"recipe\"}],\"available_recipes\":[1379062,1698593,1378987,1629779,2077891,1378940,2048292,1789203],\"hidden_items\":[{\"item\":\"orig_choice_of\",\"weight\":0,\"name\":\"Choice of\",\"type\":\"text\"},{\"item\":\"orig_with\",\"weight\":0,\"name\":\"With\",\"type\":\"text\"},{\"item\":\"orig_and\",\"weight\":0,\"name\":\"And\",\"type\":\"text\"},{\"item\":\"orig_or\",\"weight\":0,\"name\":\"Or\",\"type\":\"text\"}],\"days_off\":[],\"daily_meal_items\":[]}",
+      "overwritten": false
+    },
+    {
+      "id": 1450552992,
+      "day": "2026-09-22",
+      "meal_id": 17546590,
+      "setting": "{\"available_recipes\":[2077889,2108553,1379062,2077891,1789203,1698593,1378940,1378987,2048292],\"current_display\":[{\"item\":\"Lunch Entree\",\"weight\":0,\"name\":\"Lunch Entree\",\"type\":\"category\"},{\"item\":2077889,\"weight\":1,\"name\":\"Birria and Cheese Pupusa\",\"type\":\"recipe\"},{\"item\":\"orig_or\",\"weight\":2,\"name\":\"Or\",\"type\":\"text\"},{\"item\":2108553,\"weight\":3,\"name\":\"Bean and Cheese Pupusa\",\"type\":\"recipe\"},{\"item\":\"Vegetables\",\"weight\":4,\"name\":\"Vegetables\",\"type\":\"category\"},{\"item\":1379062,\"weight\":5,\"name\":\"Red Gold Salsa Cup\",\"type\":\"recipe\"},{\"item\":2077891,\"weight\":6,\"name\":\"Bush's Taco Fiesta Black Beans\",\"type\":\"recipe\"},{\"item\":1789203,\"weight\":7,\"name\":\"Golden Corn Kernels\",\"type\":\"recipe\"},{\"item\":\"Fruit\",\"weight\":8,\"name\":\"Fruit\",\"type\":\"category\"},{\"item\":1698593,\"weight\":9,\"name\":\"Diced Peaches Cup\",\"type\":\"recipe\"},{\"item\":\"1378940\",\"weight\":10,\"name\":\"Assorted Seasonal Fresh  Fruit\",\"type\":\"recipe\"},{\"item\":\"Milk\",\"weight\":11,\"name\":\"Milk\",\"type\":\"category\"},{\"item\":1378987,\"weight\":12,\"name\":\"1% White Milk\",\"type\":\"recipe\"},{\"item\":2048292,\"weight\":13,\"name\":\"Fat Free Chocolate Milk\",\"type\":\"recipe\"}],\"hidden_items\":[{\"item\":\"orig_choice_of\",\"weight\":0,\"name\":\"Choice of\",\"type\":\"text\"},{\"item\":\"orig_with\",\"weight\":0,\"name\":\"With\",\"type\":\"text\"},{\"item\":\"orig_and\",\"weight\":0,\"name\":\"And\",\"type\":\"text\"}],\"days_off\":[]}",
+      "overwritten": true
+    }
+  ],
+  "message": null
+}

@@ -1,36 +1,64 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
 name = "my-school-menus"
-dependencies = [
-    "icalendar~=5.0.11",
-    "requests>=2.31,<2.33"
-]
 dynamic = ["version"]
-requires-python = ">=3.9"
-authors = [
-    { name="Andrew R. DeFilippis", email="andrew@defilippisfamily.com" },
-]
-description = "A package for interacting with My School Menus."
+description = "Fetch school menus from Health-e Pro (My School Menus) and export them as iCalendar feeds."
 readme = "README.md"
-license = {file = "LICENSE"}
-keywords = ["api", "school", "lunch", "menu", "calendar"]
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [
+    { name = "Andrew R. DeFilippis", email = "andrew@defilippisfamily.com" },
+]
+keywords = ["api", "school", "lunch", "breakfast", "menu", "calendar", "ics"]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent"
+    "Programming Language :: Python :: 3 :: Only",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+]
+dependencies = [
+    "icalendar>=7.3,<8",
+    "requests>=2.33,<3",
+    "urllib3>=2.8,<3",
+]
+
+[project.scripts]
+my-school-menus = "my_school_menus.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/andrewdefilippis/my-school-menus"
+Issues = "https://github.com/andrewdefilippis/my-school-menus/issues"
+
+[dependency-groups]
+dev = [
+    "pytest>=9",
+    "responses>=0.26",
+    "ruff>=0.16",
+    "mypy>=2.3",
+    "types-requests",
 ]
 
 [tool.hatch.version]
 path = "my_school_menus/__meta__.py"
 
-[project.optional-dependencies]
-test = [
-    "pytest~=7.4.3",
-]
+[tool.hatch.build.targets.sdist]
+include = ["my_school_menus", "tests", "README.md", "LICENSE"]
 
-[project.urls]
-Homepage = "https://github.com/andrewdefilippis/my_school_menus"
-Issues = "https://github.com/andrewdefilippis/my_school_menus/issues"
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = [".claude"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+strict = true
+packages = ["my_school_menus"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

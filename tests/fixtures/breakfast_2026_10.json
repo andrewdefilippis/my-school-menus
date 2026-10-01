@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": 1450552744,
+      "day": "2026-10-01",
+      "meal_id": 17546342,
+      "setting": "{\"current_display\":[{\"item\":\"Breakfast Entree\",\"weight\":0,\"name\":\"Breakfast Entree\",\"type\":\"category\"},{\"item\":1809970,\"weight\":1,\"name\":\"Apple Cinnamon French Toast\",\"type\":\"recipe\"},{\"item\":1378938,\"weight\":2,\"name\":\"Assorted General Mills Cereal Bowls\",\"type\":\"recipe\"},{\"item\":1378986,\"weight\":3,\"name\":\"Benefit Bars\",\"type\":\"recipe\"},{\"item\":\"Fruit\",\"weight\":4,\"name\":\"Fruit\",\"type\":\"category\"},{\"item\":1380519,\"weight\":5,\"name\":\"Assorted Dried Fruit\",\"type\":\"recipe\"},{\"item\":1379225,\"weight\":6,\"name\":\"Assorted Juice Box\",\"type\":\"recipe\"},{\"item\":1379224,\"weight\":7,\"name\":\"Fresh Orange Slices\",\"type\":\"recipe\"},{\"item\":\"Milk\",\"weight\":8,\"name\":\"Milk\",\"type\":\"category\"},{\"item\":1378987,\"weight\":9,\"name\":\"1% White Milk\",\"type\":\"recipe\"},{\"item\":2048292,\"weight\":10,\"name\":\"Fat Free Chocolate Milk\",\"type\":\"recipe\"}],\"available_recipes\":[1378987,1380519,1809970,1379225,2048292,1378938,1379224,1378986],\"hidden_items\":[{\"item\":\"orig_choice_of\",\"weight\":0,\"name\":\"Choice of\",\"type\":\"text\"},{\"item\":\"orig_with\",\"weight\":0,\"name\":\"With\",\"type\":\"text\"},{\"item\":\"orig_and\",\"weight\":0,\"name\":\"And\",\"type\":\"text\"},{\"item\":\"orig_or\",\"weight\":0,\"name\":\"Or\",\"type\":\"text\"}],\"days_off\":[],\"daily_meal_items\":[]}",
+      "overwritten": false
+    },
+    {
+      "id": 1450552745,
+      "day": "2026-10-02",
+      "meal_id": 17546343,
+      "setting": "{\"current_display\":[{\"item\":\"Breakfast Entree\",\"weight\":0,\"name\":\"Breakfast Entree\",\"type\":\"category\"},{\"item\":1379194,\"weight\":1,\"name\":\"Freshly Baked Donut\",\"type\":\"recipe\"},{\"item\":1378938,\"weight\":2,\"name\":\"Assorted General Mills Cereal Bowls\",\"type\":\"recipe\"},{\"item\":1378986,\"weight\":3,\"name\":\"Benefit Bars\",\"type\":\"recipe\"},{\"item\":\"Fruit\",\"weight\":4,\"name\":\"Fruit\",\"type\":\"category\"},{\"item\":1380519,\"weight\":5,\"name\":\"Assorted Dried Fruit\",\"type\":\"recipe\"},{\"item\":1379225,\"weight\":6,\"name\":\"Assorted Juice Box\",\"type\":\"recipe\"},{\"item\":1379224,\"weight\":7,\"name\":\"Fresh Orange Slices\",\"type\":\"recipe\"},{\"item\":\"Milk\",\"weight\":8,\"name\":\"Milk\",\"type\":\"category\"},{\"item\":1378987,\"weight\":9,\"name\":\"1% White Milk\",\"type\":\"recipe\"},{\"item\":2048292,\"weight\":10,\"name\":\"Fat Free Chocolate Milk\",\"type\":\"recipe\"}],\"available_recipes\":[1380519,1378987,1379194,1379225,2048292,1378938,1379224,1378986],\"hidden_items\":[{\"item\":\"orig_choice_of\",\"weight\":0,\"name\":\"Choice of\",\"type\":\"text\"},{\"item\":\"orig_with\",\"weight\":0,\"name\":\"With\",\"type\":\"text\"},{\"item\":\"orig_and\",\"weight\":0,\"name\":\"And\",\"type\":\"text\"},{\"item\":\"orig_or\",\"weight\":0,\"name\":\"Or\",\"type\":\"text\"}],\"days_off\":[],\"daily_meal_items\":[]}",
+      "overwritten": false
+    },
+    {
+      "id": 1450552746,
+      "day": "2026-10-05",
+      "meal_id": 17546344,
+      "setting": "{\"current_display\":[{\"item\":\"Breakfast Entree\",\"weight\":0,\"name\":\"Breakfast Entree\",\"type\":\"category\"},{\"item\":2067455,\"weight\":1,\"name\":\"Sunrise Breakfast Taco\",\"type\":\"recipe\"},{\"item\":1378938,\"weight\":2,\"name\":\"Assorted General Mills Cereal Bowls\",\"type\":\"recipe\"},{\"item\":1378986,\"weight\":3,\"name\":\"Benefit Bars\",\"type\":\"recipe\"},{\"item\":\"Fruit\",\"weight\":4,\"name\":\"Fruit\",\"type\":\"category\"},{\"item\":1380519,\"weight\":5,\"name\":\"Assorted Dried Fruit\",\"type\":\"recipe\"},{\"item\":1379225,\"weight\":6,\"name\":\"Assorted Juice Box\",\"type\":\"recipe\"},{\"item\":1379224,\"weight\":7,\"name\":\"Fresh Orange Slices\",\"type\":\"recipe\"},{\"item\":\"Milk\",\"weight\":8,\"name\":\"Milk\",\"type\":\"category\"},{\"item\":1378987,\"weight\":9,\"name\":\"1% White Milk\",\"type\":\"recipe\"},{\"item\":2048292,\"weight\":10,\"name\":\"Fat Free Chocolate Milk\",\"type\":\"recipe\"}],\"available_recipes\":[1380519,1378987,2067455,1379225,2048292,1378938,1379224,1378986],\"hidden_items\":[{\"item\":\"orig_choice_of\",\"weight\":0,\"name\":\"Choice of\",\"type\":\"text\"},{\"item\":\"orig_with\",\"weight\":0,\"name\":\"With\",\"type\":\"text\"},{\"item\":\"orig_and\",\"weight\":0,\"name\":\"And\",\"type\":\"text\"},{\"item\":\"orig_or\",\"weight\":0,\"name\":\"Or\",\"type\":\"text\"}],\"days_off\":[],\"daily_meal_items\":[]}",
+      "overwritten": false
+    }
+  ],
+  "message": null
+}
