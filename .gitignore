@@ -1,5 +1,8 @@
 .idea
 venv
 *.iml
-*school-lunch-calendar.ics
+*.ics
+feeds/
 __pycache__
+.venv
+dist

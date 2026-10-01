@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": 125546,
+      "custom_name": "Primary & Intermediate SY 26/27 Breakfast Menu",
+      "name": "Primary & Intermediate SY 26/27 Breakfast Menu",
+      "days_in_week": 5,
+      "first_day_of_week": 1,
+      "meal_type_id": 1,
+      "public_name": "Primary & Intermediate SY 26/27 Breakfast Menu",
+      "use_menu_name": true,
+      "published_months": [
+        "2026-09-01",
+        "2026-10-01"
+      ]
+    },
+    {
+      "id": 125549,
+      "custom_name": "Primary SY 26/27 Lunch Menu",
+      "name": "Primary SY 26/27 Lunch Menu",
+      "days_in_week": 5,
+      "first_day_of_week": 1,
+      "meal_type_id": 2,
+      "public_name": "Primary SY 26/27 Lunch Menu",
+      "use_menu_name": true,
+      "published_months": [
+        "2026-09-01",
+        "2026-10-01"
+      ]
+    }
+  ]
+}

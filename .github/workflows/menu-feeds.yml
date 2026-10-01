@@ -1,0 +1,99 @@
+# Publishes breakfast and lunch iCalendar feeds for each school in the MSM_SCHOOLS secret to a secret Gist.
+# Setup: see "Subscription feeds" in README.md.
+name: Menu feeds
+
+on:
+  schedule:
+    - cron: "17 3 * * *"  # off the top of the hour to avoid queue delays
+      timezone: "America/Los_Angeles"
+  workflow_dispatch: {}
+
+concurrency:
+  group: menu-feeds
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          python-version: "3.13"
+      - run: uv sync --locked --no-dev
+
+      - name: Build feeds
+        env:
+          MSM_SCHOOLS: ${{ secrets.MSM_SCHOOLS }}  # one "district site" pair per line
+        run: |
+          set -euo pipefail
+          mkdir -p feeds
+          failed=0
+          line=0
+          while read -r district site _; do
+            line=$((line + 1))
+            case "${district:-}" in ''|'#'*) continue ;; esac
+            echo "::add-mask::$district"
+            echo "::add-mask::$site"
+            # The logs are public: CLI errors can name menus, so they are discarded here. Reproduce locally to debug.
+            # Each school gets a wall-clock limit so one slow upstream can't starve the others or the Gist update.
+            if ! timeout 60 uv run --no-sync my-school-menus --district "$district" --site "$site" \
+                --output-dir feeds --quiet < /dev/null 2> /dev/null; then
+              echo "::warning::MSM_SCHOOLS line $line failed to build"
+              failed=$((failed + 1))
+            fi
+          done <<< "$MSM_SCHOOLS"
+          shopt -s nullglob
+          feeds=(feeds/*.ics)
+          echo "built ${#feeds[@]} feed(s), $failed school(s) failed"
+          [ "${#feeds[@]}" -gt 0 ] || exit 1
+          echo "FAILED_SCHOOLS=$failed" >> "$GITHUB_ENV"
+
+      - name: Update Gist files that changed
+        env:
+          GH_TOKEN: ${{ secrets.MENU_GIST_TOKEN }}
+          GIST_ID: ${{ secrets.MENU_GIST_ID }}
+        run: |
+          set -euo pipefail
+          norm() { tr -d '\r' | grep -v '^DTSTAMP' || true; }
+          gh api "gists/$GIST_ID" > gist.json
+          payload='{"files":{}}'
+          changed=0
+          for f in feeds/*.ics; do
+            name=$(basename "$f")
+            if [ "$(jq -r --arg n "$name" '.files[$n].content // ""' gist.json | norm)" != "$(norm < "$f")" ]; then
+              payload=$(jq --arg n "$name" --rawfile c "$f" '.files[$n] = {content: $c}' <<< "$payload")
+              changed=$((changed + 1))
+            fi
+          done
+          if [ "$changed" -gt 0 ]; then
+            gh api -X PATCH "gists/$GIST_ID" --input - <<< "$payload" > /dev/null
+          fi
+          echo "updated $changed feed(s)"
+
+      - name: Fail if any school failed
+        if: env.FAILED_SCHOOLS != '0'
+        run: |
+          echo "::error::$FAILED_SCHOOLS school(s) failed to build; their feeds were not updated"
+          exit 1
+
+  # GitHub disables schedules in public repos after 60 days without activity; Gist edits don't count.
+  keepalive:
+    needs: publish
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions:
+      actions: write
+    steps:
+      - name: Keep schedule alive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/$GITHUB_REPOSITORY/actions/workflows/menu-feeds.yml/enable"
